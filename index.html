@@ -534,7 +534,21 @@ function handleForm(e){
   const t={nl:'✓ Bedankt — wij nemen spoedig contact op.',en:'✓ Thank you — we will be in touch shortly.',ro:'✓ Vă mulțumim — vă vom contacta în curând.'};
   msg.textContent=t[currentLang];msg.style.display='block';e.target.reset();
 }
-
+function openLegal(){
+  const m=document.getElementById('legal-modal');
+  m.classList.add('open');
+  document.body.style.overflow='hidden';
+  setLang(currentLang);
+}
+function closeLegal(){
+  document.getElementById('legal-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('legal-modal').addEventListener('click',function(e){
+    if(e.target===this)closeLegal();
+  });
+});
 function openPrivacy(){{
   const m=document.getElementById('privacy-modal');
   m.classList.add('open');
@@ -658,5 +672,46 @@ document.addEventListener('keydown',function(e){{
     });
   })();
 </script>
+<!-- JURIDISCH MODAL -->
+<div class="modal-overlay" id="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title" id="legal-title" data-lang-content data-nl="Juridische informatie" data-en="Legal information" data-ro="Informații legale">Juridische informatie</h2>
+      <button class="modal-close" onclick="closeLegal()" aria-label="Sluiten">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <table class="legal-table">
+        <tbody>
+          <tr>
+            <td class="legal-label" data-lang-content data-nl="Juridische naam" data-en="Legal name" data-ro="Denumire juridică">Juridische naam</td>
+            <td class="legal-value">CALEA CONNECT S.R.L.</td>
+          </tr>
+          <tr>
+            <td class="legal-label">CUI</td>
+            <td class="legal-value">53295573</td>
+          </tr>
+          <tr>
+            <td class="legal-label" data-lang-content data-nl="Handelsregister" data-en="Trade register" data-ro="Registrul comerțului">Handelsregister</td>
+            <td class="legal-value">J2026002898001</td>
+          </tr>
+          <tr>
+            <td class="legal-label">TVA-RO</td>
+            <td class="legal-value">RO53295573</td>
+          </tr>
+          <tr>
+            <td class="legal-label" data-lang-content data-nl="Maatschappelijke zetel" data-en="Registered office" data-ro="Sediu social">Maatschappelijke zetel</td>
+            <td class="legal-value">Strada Carpaților 93, Brașov</td>
+          </tr>
+          <tr>
+            <td class="legal-label" data-lang-content data-nl="E-mailadres" data-en="Email address" data-ro="Adresă e-mail">E-mailadres</td>
+            <td class="legal-value"><a href="mailto:banseeuw@gmail.com" style="color:var(--color-primary);text-decoration:underline;">banseeuw@gmail.com</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 </body>
 </html>
