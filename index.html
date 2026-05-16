@@ -67,6 +67,11 @@ a{color:inherit;text-decoration:none;}
 .about-para{font-size:var(--text-base);color:var(--color-text-muted);line-height:1.75;margin-bottom:var(--space-4);}
 .about-para:last-child{margin-bottom:0;}
 @media(max-width:768px){.about-split{grid-template-columns:1fr;}.about-photo{max-width:240px;margin-inline:auto;}}
+.legal-table{width:100%;border-collapse:collapse;margin-top:var(--space-2);}
+.legal-table tr{border-bottom:1px solid var(--color-divider);}
+.legal-table tr:last-child{border-bottom:none;}
+.legal-label{font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);padding:var(--space-3) var(--space-4) var(--space-3) 0;vertical-align:top;white-space:nowrap;width:45%;}
+.legal-value{font-size:var(--text-sm);color:var(--color-text);padding:var(--space-3) 0;vertical-align:top;}
 /* NAV */
 nav{position:sticky;top:0;z-index:100;background:color-mix(in oklch,var(--color-bg) 94%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--color-divider);padding:12px var(--space-6);}
 .nav-inner{max-width:var(--content-default);margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);}
@@ -491,6 +496,7 @@ hr{border:none;border-top:1px solid var(--color-divider);}
       <a href="#diensten" data-lang-content data-nl="Diensten" data-en="Services" data-ro="Servicii">Diensten</a>
       <a href="#contact">Contact</a>
       <button class="privacy-link" onclick="openPrivacy()" data-lang-content data-nl="Privacyverklaring" data-en="Privacy Policy" data-ro="Confidențialitate">Privacyverklaring</button>
+      <button class="privacy-link" onclick="openLegal()" data-lang-content data-nl="Juridische informatie" data-en="Legal information" data-ro="Informații legale">Juridische informatie</button>
     </div>
   </div>
 </footer>
@@ -534,6 +540,7 @@ function handleForm(e){
   const t={nl:'✓ Bedankt — wij nemen spoedig contact op.',en:'✓ Thank you — we will be in touch shortly.',ro:'✓ Vă mulțumim — vă vom contacta în curând.'};
   msg.textContent=t[currentLang];msg.style.display='block';e.target.reset();
 }
+
 function openLegal(){
   const m=document.getElementById('legal-modal');
   m.classList.add('open');
@@ -564,7 +571,7 @@ document.getElementById('privacy-modal').addEventListener('click',function(e){{
   if(e.target===this)closePrivacy();
 }});
 document.addEventListener('keydown',function(e){{
-  if(e.key==='Escape')closePrivacy();
+  if(e.key==='Escape'){closePrivacy();closeLegal();}
 }});
 </script>
 
@@ -672,6 +679,7 @@ document.addEventListener('keydown',function(e){{
     });
   })();
 </script>
+
 <!-- JURIDISCH MODAL -->
 <div class="modal-overlay" id="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-title">
   <div class="modal-box">
