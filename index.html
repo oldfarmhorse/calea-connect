@@ -424,7 +424,7 @@ hr{border:none;border-top:1px solid var(--color-divider);}
           Vertel ons over uw project — of het nu gaat om een Roemeense overheidsopdracht, een Belgisch energieproject of een Europees consortiumtraject. Eerste gesprek is altijd vrijblijvend.
         </p>
       </div>
-      <form class="contact-form" action="https://formspree.io/f/xredzprz" method="POST" onsubmit="handleFormspree(event)">
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xredzprz" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label for="naam" data-lang-content data-nl="Naam" data-en="Name" data-ro="Nume">Naam</label>
@@ -595,5 +595,38 @@ document.addEventListener('keydown',function(e){{
   </div>
 </div>
 
+<script>
+  // Formspree AJAX submit
+  (function(){
+    var form = document.getElementById('contact-form');
+    if(!form) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var msg = document.getElementById('form-msg');
+      if(btn) btn.disabled = true;
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(resp){
+        if(resp.ok){
+          msg.style.display = 'block';
+          form.reset();
+        } else {
+          msg.textContent = '⚠ Er is iets misgegaan. Probeer opnieuw.';
+          msg.style.display = 'block';
+          msg.style.color = 'var(--color-error)';
+        }
+        if(btn) btn.disabled = false;
+      }).catch(function(){
+        msg.textContent = '⚠ Geen verbinding. Probeer opnieuw.';
+        msg.style.display = 'block';
+        msg.style.color = 'var(--color-error)';
+        if(btn) btn.disabled = false;
+      });
+    });
+  })();
+</script>
 </body>
 </html>
