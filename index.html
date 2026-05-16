@@ -461,6 +461,7 @@ hr{border:none;border-top:1px solid var(--color-divider);}
       <a href="#diensten" data-lang-content data-nl="Diensten" data-en="Services" data-ro="Servicii">Diensten</a>
       <a href="#contact">Contact</a>
       <button class="privacy-link" onclick="openPrivacy()" data-lang-content data-nl="Privacyverklaring" data-en="Privacy Policy" data-ro="Confidențialitate">Privacyverklaring</button>
+      <button class="privacy-link" onclick="openLegal()" data-lang-content data-nl="Juridische informatie" data-en="Legal information" data-ro="Informații legale">Juridische informatie</button>
     </div>
   </div>
 </footer>
@@ -520,7 +521,20 @@ document.getElementById('privacy-modal').addEventListener('click',function(e){{
   if(e.target===this)closePrivacy();
 }});
 document.addEventListener('keydown',function(e){{
-  if(e.key==='Escape')closePrivacy();
+  if(e.key==='Escape'){{ closePrivacy(); closeLegal(); }}
+}});
+function openLegal(){{
+  const m=document.getElementById('legal-modal');
+  m.classList.add('open');
+  document.body.style.overflow='hidden';
+  setLang(currentLang);
+}}
+function closeLegal(){{
+  document.getElementById('legal-modal').classList.remove('open');
+  document.body.style.overflow='';
+}}
+document.getElementById('legal-modal').addEventListener('click',function(e){{
+  if(e.target===this)closeLegal();
 }});
 </script>
 
@@ -594,6 +608,48 @@ document.addEventListener('keydown',function(e){{
     </div>
   </div>
 </div>
+<!-- LEGAL MODAL -->
+<div class="modal-overlay" id="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title" id="legal-title" data-lang-content data-nl="Juridische informatie" data-en="Legal information" data-ro="Informații legale">Juridische informatie</h2>
+      <button class="modal-close" onclick="closeLegal()" aria-label="Sluiten">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);line-height:1.9;">
+        <tbody>
+          <tr>
+            <td style="color:var(--color-text-muted);padding:var(--space-2) var(--space-4) var(--space-2) 0;white-space:nowrap;vertical-align:top;" data-lang-content data-nl="Juridische naam" data-en="Legal name" data-ro="Denumire juridică">Juridische naam</td>
+            <td style="padding:var(--space-2) 0;font-weight:600;">CALEA CONNECT S.R.L.</td>
+          </tr>
+          <tr>
+            <td style="color:var(--color-text-muted);padding:var(--space-2) var(--space-4) var(--space-2) 0;white-space:nowrap;vertical-align:top;">CUI</td>
+            <td style="padding:var(--space-2) 0;">53295573</td>
+          </tr>
+          <tr>
+            <td style="color:var(--color-text-muted);padding:var(--space-2) var(--space-4) var(--space-2) 0;white-space:nowrap;vertical-align:top;" data-lang-content data-nl="Handelsregister" data-en="Trade register" data-ro="Nr. Reg. Comerțului">Handelsregister</td>
+            <td style="padding:var(--space-2) 0;">J2026002898001</td>
+          </tr>
+          <tr>
+            <td style="color:var(--color-text-muted);padding:var(--space-2) var(--space-4) var(--space-2) 0;white-space:nowrap;vertical-align:top;">TVA-RO</td>
+            <td style="padding:var(--space-2) 0;">RO53295573</td>
+          </tr>
+          <tr>
+            <td style="color:var(--color-text-muted);padding:var(--space-2) var(--space-4) var(--space-2) 0;white-space:nowrap;vertical-align:top;" data-lang-content data-nl="Maatschappelijke zetel" data-en="Registered office" data-ro="Sediu social">Maatschappelijke zetel</td>
+            <td style="padding:var(--space-2) 0;">Strada Carpaților 93, bloc 21, ap. 83, camera 3<br>500269 Brașov, România</td>
+          </tr>
+          <tr>
+            <td style="color:var(--color-text-muted);padding:var(--space-2) var(--space-4) var(--space-2) 0;white-space:nowrap;vertical-align:top;">E-mail</td>
+            <td style="padding:var(--space-2) 0;"><a href="mailto:banseeuw@gmail.com" style="color:var(--color-accent);">banseeuw@gmail.com</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 
 <script>
   // Formspree AJAX submit
